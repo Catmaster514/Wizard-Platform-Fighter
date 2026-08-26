@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://db4aveofwvy0y"]
+
+[ext_resource type="Script" uid="uid://6u4tgk6qtuox" path="res://Scripts/StageCollisionHandler.gd" id="1_3wmch"]
+[ext_resource type="Texture2D" uid="uid://bmi3d72slcaff" path="res://Assets/Art/Stage/Stage1.png" id="1_w5kh5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxrlw"]
+size = Vector2(88, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1195795662]
+process_priority = 2
+process_physics_priority = 2
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_3wmch")
+
+[node name="Main Stage" type="CollisionPolygon2D" parent="." unique_id=358591142]
+polygon = PackedVector2Array(0, 124, 180, 31, -177, 31)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1631347054]
+position = Vector2(0, 41)
+texture = ExtResource("1_w5kh5")
+
+[node name="Platforms" type="StaticBody2D" parent="." unique_id=2137848417]
+collision_layer = 3
+
+[node name="PlatformL" type="CollisionShape2D" parent="Platforms" unique_id=1343900703]
+position = Vector2(-111, -36.5)
+shape = SubResource("RectangleShape2D_qxrlw")
+one_way_collision_margin = 7.8
+
+[node name="PlatformR" type="CollisionShape2D" parent="Platforms" unique_id=159304837]
+position = Vector2(115, -36.5)
+shape = SubResource("RectangleShape2D_qxrlw")

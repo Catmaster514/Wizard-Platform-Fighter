@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dwlv1fm40rvfw"]
+
+[ext_resource type="PackedScene" uid="uid://cj4q0ofmuhvnt" path="res://Scenes/Players/FWizardPlayer.tscn" id="1_qxrlw"]
+[ext_resource type="Script" uid="uid://cogrtn04kel6o" path="res://Scripts/Input_Setup.gd" id="3_3dryh"]
+[ext_resource type="Script" uid="uid://cotkoaw07bj84" path="res://Scripts/ScoreBoard.gd" id="3_i6g32"]
+[ext_resource type="PackedScene" uid="uid://db4aveofwvy0y" path="res://Scenes/Stages/Stage1.tscn" id="3_wrm1d"]
+[ext_resource type="Script" uid="uid://dle14ro00i1lm" path="res://Scripts/particle_master.gd" id="4_3dryh"]
+[ext_resource type="Script" uid="uid://d17q3x62vqhwe" path="res://Scripts/Resources/PlayerControls.gd" id="4_wowpa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l0tm"]
+size = Vector2(700, 400)
+
+[sub_resource type="Resource" id="Resource_wowpa"]
+script = ExtResource("4_wowpa")
+player_Index = 1
+up = "Player_2_Up"
+down = "Player_2_Down"
+left = "Player_2_Left"
+right = "Player_2_Right"
+jump = "Player_2_Jump"
+short_jump = "Player_2_Short_Jump"
+attack = "Player_2_Attack"
+special = "Player_2_Special"
+dash = "Player_2_Dash"
+metadata/_custom_type_script = "uid://d17q3x62vqhwe"
+
+[node name="Game" type="Node" unique_id=960612360]
+
+[node name="GameMaster" type="Node" parent="." unique_id=242291068]
+unique_name_in_owner = true
+
+[node name="ParticleMaster" type="Node" parent="GameMaster" unique_id=1948119662]
+unique_name_in_owner = true
+script = ExtResource("4_3dryh")
+
+[node name="InputSetup" type="Node" parent="GameMaster" unique_id=350895149]
+unique_name_in_owner = true
+script = ExtResource("3_3dryh")
+
+[node name="ScoreBoard" type="Node" parent="GameMaster" unique_id=713340001]
+script = ExtResource("3_i6g32")
+
+[node name="Area2D" type="Area2D" parent="GameMaster/ScoreBoard" unique_id=54788452]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameMaster/ScoreBoard/Area2D" unique_id=250568424]
+position = Vector2(-1.5, -26)
+shape = SubResource("RectangleShape2D_1l0tm")
+
+[node name="Player1" parent="." unique_id=1889618207 instance=ExtResource("1_qxrlw")]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(-111, -80)
+metadata/feetOffSet = 14
+
+[node name="Player2" parent="." unique_id=953926514 instance=ExtResource("1_qxrlw")]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+z_index = 1
+position = Vector2(111, -80)
+scale = Vector2(-1, 1)
+collision_layer = 2
+collision_mask = 2
+PlayerInput = SubResource("Resource_wowpa")
+metadata/feetOffSet = 14
+metadata/Player = 2
+
+[node name="Stage" parent="." unique_id=1195795662 instance=ExtResource("3_wrm1d")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=95623990]
+offset = Vector2(0, 10.54)
+zoom = Vector2(2, 2)
+
+[connection signal="body_exited" from="GameMaster/ScoreBoard/Area2D" to="GameMaster/ScoreBoard" method="Player_Dies"]

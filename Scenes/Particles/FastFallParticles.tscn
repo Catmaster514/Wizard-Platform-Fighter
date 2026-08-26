@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://boru3icrjxl38"]
+
+[ext_resource type="Script" uid="uid://4t8orpt0qpnb" path="res://Scripts/ParticleFollow.gd" id="1_0x8vh"]
+[ext_resource type="Texture2D" uid="uid://hfqp5dog84fv" path="res://Assets/Art/Particles/FastFallParticles.png" id="1_nw1be"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbdxe"]
+atlas = ExtResource("1_nw1be")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqk84"]
+atlas = ExtResource("1_nw1be")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qki1b"]
+atlas = ExtResource("1_nw1be")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wi16i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbdxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqk84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qki1b")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_iluc8"]
+resource_name = "FastFallParticles"
+length = 0.3
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vdnjb"]
+_data = {
+&"FastFallParticles": SubResource("Animation_iluc8")
+}
+
+[node name="FastFallParticles" type="Node2D" unique_id=1064639315]
+script = ExtResource("1_0x8vh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1588285496]
+z_index = 6
+sprite_frames = SubResource("SpriteFrames_wi16i")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1769688747]
+libraries/ = SubResource("AnimationLibrary_vdnjb")

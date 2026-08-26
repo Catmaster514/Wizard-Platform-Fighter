@@ -1,0 +1,22 @@
+ordering:
+	6= UI?
+	5=attacking player
+	4=not attacking player
+	3=projectiles
+	2=particle effects
+	1=stage
+
+process prioty
+
+	3 = Animation players
+	2 = Stage physics
+	1 = Player
+	0 = Input buffers
+Collision Order
+	Layer 1: Player 1
+	Layer 2: Player 2
+	Stage is on both layers one and two and will switch them on or off depending on the position of the player relative to the platform
+
+
+Whats Next?
+	add end lag to dash attack making it feel like you dont accelerate instanlty after stopping on an edge

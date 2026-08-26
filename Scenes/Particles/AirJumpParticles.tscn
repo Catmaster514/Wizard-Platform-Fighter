@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://qq1oe7g53i2u"]
+
+[sub_resource type="Curve" id="Curve_71t44"]
+_limits = [-10.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(0.90000004, 10), 4.2892534e-06, 4.2892534e-06, 0, 0, Vector2(1, 0), -41.040142, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Animation" id="Animation_cde0c"]
+resource_name = "AirJumpParticles"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1kbcu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4d7ec"]
+_data = {
+&"AirJumpParticles": SubResource("Animation_cde0c"),
+&"RESET": SubResource("Animation_1kbcu")
+}
+
+[node name="AirJumpParticles" type="Node2D" unique_id=478182241]
+z_index = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1113754349]
+position = Vector2(0, 15)
+emitting = false
+amount = 13
+lifetime = 0.25
+one_shot = true
+use_fixed_seed = true
+seed = 1150227951
+emission_shape = 3
+emission_rect_extents = Vector2(12.015, 1)
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = 10.0
+orbit_velocity_max = 10.0
+orbit_velocity_curve = SubResource("Curve_71t44")
+angle_min = 370.7
+angle_max = 370.7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1143635676]
+libraries/ = SubResource("AnimationLibrary_4d7ec")
